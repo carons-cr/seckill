@@ -9,15 +9,14 @@ import cn.cr.service.model.UserModel;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Random;
 
 @Controller("user")
 @RequestMapping("/user")
+@CrossOrigin
 public class UserController extends BaseController{
 
     @Autowired
@@ -26,7 +25,7 @@ public class UserController extends BaseController{
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @RequestMapping("/getotp")
+    @RequestMapping(value = "/getotp", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
     @ResponseBody
     public CommonReturnType getOtp(@RequestParam(name = "telephone") String telephone){
         //按照一定规则生成otp验证码
