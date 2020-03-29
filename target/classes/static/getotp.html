@@ -39,9 +39,11 @@
                 data:{
                     "telephone":$("#telephone").val(),
                 },
+                xhrFields:{withCredentials:true},
                 success:function (data) {
                     if(data.status === "success"){
                         alert("otp已发送到您手机,请注意查收");
+                        window.location.href="./register.html";
                     }else {
                         alert("otp发送失败,原因为"+data.data.errorMessage);
                     }

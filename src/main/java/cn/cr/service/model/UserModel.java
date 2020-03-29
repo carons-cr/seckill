@@ -3,7 +3,7 @@ package cn.cr.service.model;
 public class UserModel {
     private Integer id;
     private String name;
-    private byte sex;
+    private Byte sex;
     private Integer age;
     private String telephone;
     private String registerMode;
@@ -26,11 +26,11 @@ public class UserModel {
         this.name = name;
     }
 
-    public byte getSex() {
+    public Byte getSex() {
         return sex;
     }
 
-    public void setSex(byte sex) {
+    public void setSex(Byte sex) {
         this.sex = sex;
     }
 

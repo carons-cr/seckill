@@ -975,33 +975,41 @@
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="241" parent="232" name="PRIMARY">
+    <index id="241" parent="232" name="user_info_telephone_uindex">
+      <ColNames>telephone</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="242" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="242" parent="233" name="id">
+    <key id="243" parent="232" name="user_info_telephone_uindex">
+      <ColNames>telephone</ColNames>
+      <UnderlyingIndexName>user_info_telephone_uindex</UnderlyingIndexName>
+    </key>
+    <column id="244" parent="233" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="233" name="encrypt_password">
+    <column id="245" parent="233" name="encrypt_password">
       <Position>2</Position>
       <DataType>varchar(128)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="233" name="user_id">
+    <column id="246" parent="233" name="user_id">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="245" parent="233" name="PRIMARY">
+    <key id="247" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

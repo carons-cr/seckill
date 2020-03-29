@@ -3,7 +3,7 @@ package cn.cr.controller.viewobject;
 public class UserVO {
     private Integer id;
     private String name;
-    private byte sex;
+    private Byte sex;
     private Integer age;
     private String telephone;
 
@@ -23,7 +23,7 @@ public class UserVO {
         this.name = name;
     }
 
-    public byte getSex() {
+    public Byte getSex() {
         return sex;
     }
 
