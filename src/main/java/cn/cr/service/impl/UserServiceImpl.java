@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService{
        }catch (DuplicateKeyException e){
            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR, "手机重复注册");
        }
+       userModel.setId(userDO.getId());
        UserPasswordDO userPasswordDO = convertPasswordFromModel(userModel);
        userPasswordDOMapper.insertSelective(userPasswordDO);
     }

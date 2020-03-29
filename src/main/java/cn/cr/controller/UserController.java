@@ -41,7 +41,7 @@ public class UserController extends BaseController{
                                      @RequestParam(name = "age") Integer age,
                                      @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
         //验证手机号和对应的otpCode相符合
-        String inSessionOtpCode = (String) this.httpServletRequest.getSession().getAttribute(otpCode);
+        String inSessionOtpCode = (String) this.httpServletRequest.getSession().getAttribute(telephone);
         if(!com.alibaba.druid.util.StringUtils.equals(otpCode, inSessionOtpCode)){
             throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR, "短信验证码不符合");
         }
