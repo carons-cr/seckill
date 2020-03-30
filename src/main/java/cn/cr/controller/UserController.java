@@ -6,6 +6,7 @@ import cn.cr.error.EnumBusinessError;
 import cn.cr.response.CommonReturnType;
 import cn.cr.service.UserService;
 import cn.cr.service.model.UserModel;
+import cn.cr.validator.ValidatorImpl;
 import com.alibaba.druid.util.StringUtils;
 import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing;
 import org.apache.tomcat.util.security.MD5Encoder;

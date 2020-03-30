@@ -1,6 +1,5 @@
 package cn.cr.service.impl;
 
-import ch.qos.logback.core.db.dialect.DBUtil;
 import cn.cr.dao.UserDOMapper;
 import cn.cr.dao.UserPasswordDOMapper;
 import cn.cr.dataobject.UserDO;
@@ -9,6 +8,8 @@ import cn.cr.error.BusinessException;
 import cn.cr.error.EnumBusinessError;
 import cn.cr.service.UserService;
 import cn.cr.service.model.UserModel;
+import cn.cr.validator.ValidationResult;
+import cn.cr.validator.ValidatorImpl;
 import com.alibaba.druid.util.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserPasswordDOMapper userPasswordDOMapper;
+
+    @Autowired
+    private ValidatorImpl validator;
 
     @Override
     public UserModel getUserById(Integer id) {
@@ -39,11 +43,9 @@ public class UserServiceImpl implements UserService{
        if(userModel == null){
            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
        }
-       if(StringUtils.isEmpty(userModel.getTelephone())
-               || StringUtils.isEmpty(userModel.getName())
-               || userModel.getSex() == null
-               || userModel.getAge() == null){
-           throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+       ValidationResult validationResult = validator.validate(userModel);
+       if(validationResult.isHasErrors()){
+           throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR, validationResult.getErrorMessage());
        }
        //实现model转为dataobject方法
        UserDO userDO = convertFromModel(userModel);
