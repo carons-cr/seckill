@@ -6,6 +6,7 @@ import cn.cr.error.EnumBusinessError;
 import cn.cr.response.CommonReturnType;
 import cn.cr.service.UserService;
 import cn.cr.service.model.UserModel;
+import com.alibaba.druid.util.StringUtils;
 import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.BeanUtils;
@@ -30,6 +31,24 @@ public class UserController extends BaseController{
 
     @Autowired
     private HttpServletRequest httpServletRequest;
+
+    //用户登录接口
+    @RequestMapping(value = "/login", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
+    @ResponseBody
+    public CommonReturnType login(@RequestParam(name = "telephone") String telephone,
+                                  @RequestParam(name = "password") String password) throws BusinessException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        //入参校验
+        if(org.apache.commons.lang3.StringUtils.isEmpty(telephone) ||
+                org.apache.commons.lang3.StringUtils.isEmpty(password)){
+            throw new BusinessException(EnumBusinessError.PARAMETER_VALIDATION_ERROR);
+        }
+        //用户登录服务，校验用户登录是否合法
+        UserModel userModel = userService.validateLogin(telephone, this.EncodeByMd5(password));
+        //将用户凭证加入到用户登录成功的session里
+        this.httpServletRequest.getSession().setAttribute("IS_LOGIN", true);
+        this.httpServletRequest.getSession().setAttribute("LOGIN_USER", userModel);
+        return CommonReturnType.create(null);
+    }
 
     //用户注册接口
     @RequestMapping(value = "/register", method = {RequestMethod.POST}, consumes = {CONTENT_TYPE_FORMED})
