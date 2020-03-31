@@ -127,7 +127,7 @@
           </executions>
           <configuration>
             <verbose>true</verbose>
-            <overwrite>true</overwrite><!--实际项目不能设为true-->
+            <overwrite>false</overwrite><!--实际项目不能设为true-->
             <configurationFile>
               src/main/resources/mybatis-generator.xml
             </configurationFile>
