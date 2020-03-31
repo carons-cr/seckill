@@ -24,7 +24,6 @@ public class UserModel {
     private String thirdPartyId;
 
     @NotBlank(message = "密码不能为空")
-    @Pattern(regexp = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9a-zA-Z]{2,16}$", message = "密码必须是2-16位数字和字母的组合")
     private String encryptPassword;
 
     public Integer getId() {
