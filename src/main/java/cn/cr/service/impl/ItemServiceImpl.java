@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -44,7 +45,7 @@ public class ItemServiceImpl implements ItemService{
         //写入数据库
         itemDOMapper.insertSelective(itemDO);
         itemModel.setId(itemDO.getId());
-        ItemStockDO itemStockDO = convertItemStockFromItemModel(itemModel);
+        ItemStockDO itemStockDO = this.convertItemStockFromItemModel(itemModel);
         itemStockDOMapper.insertSelective(itemStockDO);
         //返回创建完成的对象
         return this.getItemById(itemModel.getId());
@@ -52,7 +53,13 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public List<ItemModel> listItem() {
-        return null;
+        List<ItemDO> itemDOList = itemDOMapper.listItem();
+        List<ItemModel> itemModelList = itemDOList.stream().map(itemDO -> {
+            ItemStockDO itemStockDO = itemStockDOMapper.selectByItemId(itemDO.getId());
+            ItemModel itemModel = this.convertModelFromDataObject(itemDO, itemStockDO);
+            return itemModel;
+        }).collect(Collectors.toList());
+        return itemModelList;
     }
 
     @Override
@@ -62,7 +69,7 @@ public class ItemServiceImpl implements ItemService{
         //操作获得库存数量
         ItemStockDO itemStockDO = itemStockDOMapper.selectByItemId(itemDO.getId());
         //将dataobject->model
-        ItemModel itemModel = convertModelFromDataObject(itemDO, itemStockDO);
+        ItemModel itemModel = this.convertModelFromDataObject(itemDO, itemStockDO);
         return itemModel;
     }
 
