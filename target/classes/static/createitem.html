@@ -49,6 +49,7 @@
 
 <script>
     jQuery(document).ready(function () {
+        //绑定otp的click事件用于向后端发送获取收集验证码的请求
         $("#create").on("click", function () {
             var title = $("#title").val();
             var description = $("#description").val();

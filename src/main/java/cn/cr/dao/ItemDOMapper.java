@@ -1,6 +1,7 @@
 package cn.cr.dao;
 
 import cn.cr.dataobject.ItemDO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -54,4 +55,5 @@ public interface ItemDOMapper {
      * @mbg.generated Tue Mar 31 14:14:29 CST 2020
      */
     int updateByPrimaryKey(ItemDO record);
+    int increaseSales(@Param("id")Integer id, @Param("amount")Integer amount);
 }
